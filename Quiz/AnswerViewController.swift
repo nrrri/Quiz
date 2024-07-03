@@ -15,21 +15,33 @@ class AnswerViewController: UIViewController {
         let questionSets = QuestionData.shared.questionSets
        
         let margins = view.layoutMarginsGuide
-       
+        var previous: UILabel?
         for (question, answer) in questionSets {
-            let label = createLabel(question: question, answer: answer)
-            label.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-            label.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-            label.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
+            let labelQuestion = createLabel(prompt: "Question", value: question)
+            let labelAnswer = createLabel(prompt: "Answer", value: answer)
+
+            labelQuestion.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+            labelQuestion.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
             
+            labelAnswer.leadingAnchor.constraint(equalTo: labelQuestion.trailingAnchor, constant: 4).isActive = true
+            
+            if let previous = previous {
+                labelQuestion.topAnchor.constraint(equalTo: previous.bottomAnchor, constant: 4).isActive = true
+                labelAnswer.topAnchor.constraint(equalTo: previous.bottomAnchor, constant: 4).isActive = true
+            } else {
+                labelQuestion.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
+                labelAnswer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
+            }
+            
+            previous = labelQuestion
         }
     }
     
-    func createLabel(question: String, answer: String) -> UILabel {
+    func createLabel(prompt: String, value:String) -> UILabel {
         let label = UILabel()
         
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Question: \(question) \n Answer: \(answer)"
+        label.text = "\(prompt): \(value)"
         
         self.view.addSubview(label)
 
