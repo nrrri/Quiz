@@ -6,6 +6,21 @@
 //
 
 import UIKit
+import Foundation
+
+class QuestionData {
+    static let shared = QuestionData()
+    
+    let questionSets: [String: String] = [
+        "What is the capital city of Australia?" : "Canberra",
+        "Who wrote the play \"Hamlet\"?" :"William Shakespeare",
+        "What is the chemical symbol for the element gold?":"Au",
+        "In which year did the Titanic sink?": "1912",
+        "What is the largest planet in our solar system?":"Jupiter"
+    ]
+    
+    private init() {}
+}
 
 class MainViewController: UIViewController {
 
@@ -19,13 +34,15 @@ class MainViewController: UIViewController {
     // question and answer sets --> change to dictionary / enum
     // challenge 5
 
-    let questionSets:[String: String] = [
-        "What is the capital city of Australia?" : "Canberra",
-        "Who wrote the play \"Hamlet\"?" :"William Shakespeare",
-        "What is the chemical symbol for the element gold?":"Au",
-        "In which year did the Titanic sink?": "1912",
-        "What is the largest planet in our solar system?":"Jupiter"
-    ]
+//    let questionSets:[String: String] = [
+//        "What is the capital city of Australia?" : "Canberra",
+//        "Who wrote the play \"Hamlet\"?" :"William Shakespeare",
+//        "What is the chemical symbol for the element gold?":"Au",
+//        "In which year did the Titanic sink?": "1912",
+//        "What is the largest planet in our solar system?":"Jupiter"
+//    ]
+    
+    let questionSets = QuestionData.shared.questionSets
     
     var questions: [String] {
         return Array(questionSets.keys)
@@ -36,7 +53,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // challenge 1
-        self.view.backgroundColor = getRandomColor()
+        
         
         // round button corner -------------------
         questionButton.layer.cornerRadius = 12
@@ -51,14 +68,9 @@ class MainViewController: UIViewController {
         
     }
     
-    // Random backgrond color
-    func getRandomColor() -> UIColor {
-        let red = CGFloat(arc4random_uniform(256))/255.0
-        let green = CGFloat(arc4random_uniform(256))/255.0
-        let blue = CGFloat(arc4random_uniform(256))/255.0
-        return UIColor(red:red, green:green, blue:blue, alpha: 1.0)
+    override func viewDidDisappear(_ animated: Bool) {
+        print("View dissapeared")
     }
-    
    
     
     @IBAction func showNextQuestion(_ sender: UIButton) {

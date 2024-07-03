@@ -11,19 +11,49 @@ class AnswerViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        let questionSets = QuestionData.shared.questionSets
+       
+        let margins = view.layoutMarginsGuide
+       
+        for (question, answer) in questionSets {
+            let label = createLabel(question: question, answer: answer)
+            label.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
+            label.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+            label.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
+            
+        }
     }
     
+    func createLabel(question: String, answer: String) -> UILabel {
+        let label = UILabel()
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Question: \(question) \n Answer: \(answer)"
+        
+        self.view.addSubview(label)
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        return label
+ 
     }
-    */
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // load heavy data
+        self.view.backgroundColor = getRandomColor()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+    }
+    
+    // Random backgrond color
+    func getRandomColor() -> UIColor {
+        let red = CGFloat(arc4random_uniform(256))/255.0
+        let green = CGFloat(arc4random_uniform(256))/255.0
+        let blue = CGFloat(arc4random_uniform(256))/255.0
+        return UIColor(red:red, green:green, blue:blue, alpha: 1.0)
+    }
 
 }
