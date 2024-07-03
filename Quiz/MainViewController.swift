@@ -6,11 +6,13 @@
 //
 
 import UIKit
-import Foundation
+
 
 class QuestionData {
     static let shared = QuestionData()
     
+    // question and answer sets --> change to dictionary / enum
+    // challenge 5
     let questionSets: [String: String] = [
         "What is the capital city of Australia?" : "Canberra",
         "Who wrote the play \"Hamlet\"?" :"William Shakespeare",
@@ -31,17 +33,6 @@ class MainViewController: UIViewController {
     @IBOutlet weak var questionButton: UIButton!
     @IBOutlet weak var answerButton: UIButton!
     
-    // question and answer sets --> change to dictionary / enum
-    // challenge 5
-
-//    let questionSets:[String: String] = [
-//        "What is the capital city of Australia?" : "Canberra",
-//        "Who wrote the play \"Hamlet\"?" :"William Shakespeare",
-//        "What is the chemical symbol for the element gold?":"Au",
-//        "In which year did the Titanic sink?": "1912",
-//        "What is the largest planet in our solar system?":"Jupiter"
-//    ]
-    
     let questionSets = QuestionData.shared.questionSets
     
     var questions: [String] {
@@ -52,8 +43,6 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // challenge 1
-        
         
         // round button corner -------------------
         questionButton.layer.cornerRadius = 12

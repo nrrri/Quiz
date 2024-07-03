@@ -19,21 +19,30 @@ class AnswerViewController: UIViewController {
         for (question, answer) in questionSets {
             let labelQuestion = createLabel(prompt: "Question", value: question)
             let labelAnswer = createLabel(prompt: "Answer", value: answer)
-
+            
+//            labelQuestion.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor).isActive = true
             labelQuestion.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
             labelQuestion.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
             
-            labelAnswer.leadingAnchor.constraint(equalTo: labelQuestion.trailingAnchor, constant: 4).isActive = true
+            labelAnswer.leadingAnchor.constraint(equalTo: labelQuestion.leadingAnchor, constant: 0).isActive = true
             
             if let previous = previous {
                 labelQuestion.topAnchor.constraint(equalTo: previous.bottomAnchor, constant: 4).isActive = true
-                labelAnswer.topAnchor.constraint(equalTo: previous.bottomAnchor, constant: 4).isActive = true
             } else {
                 labelQuestion.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
-                labelAnswer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
             }
             
             previous = labelQuestion
+            
+            if let previous = previous {
+                
+                labelAnswer.topAnchor.constraint(equalTo: previous.bottomAnchor, constant: 4).isActive = true
+            } else {
+                
+                labelAnswer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
+            }
+            
+            previous = labelAnswer
         }
     }
     
@@ -41,6 +50,10 @@ class AnswerViewController: UIViewController {
         let label = UILabel()
         
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.sizeToFit()
+        label.textColor = .none
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         label.text = "\(prompt): \(value)"
         
         self.view.addSubview(label)
