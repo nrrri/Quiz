@@ -46,6 +46,7 @@ class AnswerViewController: UIViewController {
         }
     }
     
+    // challenge 4
     func createLabel(prompt: String, value:String) -> UILabel {
         let label = UILabel()
         
@@ -73,6 +74,7 @@ class AnswerViewController: UIViewController {
         
     }
     
+    // challenge 1
     // Random backgrond color
     func getRandomColor() -> UIColor {
         let red = CGFloat(arc4random_uniform(256))/255.0

@@ -11,7 +11,6 @@ import UIKit
 class QuestionData {
     static let shared = QuestionData()
     
-    // question and answer sets --> change to dictionary / enum
     // challenge 5
     let questionSets: [String: String] = [
         "What is the capital city of Australia?" : "Canberra",
@@ -39,7 +38,7 @@ class MainViewController: UIViewController {
         return Array(questionSets.keys)
     }
     
-    // challenge
+    // challenge 3
     var currentQuestionIndex: Int = 0 {
         didSet {
             setCurrentQuestionIndex()
@@ -62,6 +61,7 @@ class MainViewController: UIViewController {
         
     }
     
+    // challenge 2
     override func viewDidDisappear(_ animated: Bool) {
         print("View dissapeared")
     }
@@ -81,8 +81,6 @@ class MainViewController: UIViewController {
         let question: String = questions[currentQuestionIndex]
         questionLabel.text = question
         answerLabel.text = "???"
-        
-        
         
     }
     
