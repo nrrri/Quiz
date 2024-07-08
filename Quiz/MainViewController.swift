@@ -39,7 +39,12 @@ class MainViewController: UIViewController {
         return Array(questionSets.keys)
     }
     
-    var currentQuestionIndex: Int = 0
+    // challenge
+    var currentQuestionIndex: Int = 0 {
+        didSet {
+            setCurrentQuestionIndex()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,16 +66,23 @@ class MainViewController: UIViewController {
         print("View dissapeared")
     }
    
-    
-    @IBAction func showNextQuestion(_ sender: UIButton) {
-        
+    func setCurrentQuestionIndex() {
         if (currentQuestionIndex >= questions.count) {
             currentQuestionIndex = 0
         }
+            
+        
+    }
+    
+    @IBAction func showNextQuestion(_ sender: UIButton) {
+        
+        currentQuestionIndex += 1
         
         let question: String = questions[currentQuestionIndex]
         questionLabel.text = question
         answerLabel.text = "???"
+        
+        
         
     }
     
@@ -79,7 +91,6 @@ class MainViewController: UIViewController {
         let question = questions[currentQuestionIndex]
         let answer = questionSets[question] ?? "Answer Not Found"
         answerLabel.text = answer
-        currentQuestionIndex += 1
        
     }
 }
